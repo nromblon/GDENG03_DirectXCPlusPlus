@@ -2,9 +2,9 @@
 #include "Utilities.h"
 #include <stdexcept>
 
-const HMODULE moduleHandle = GetModuleHandle(NULL);
+const HMODULE moduleHandle = GetModuleHandle(nullptr);
 
-Window* window = nullptr;
+//Window* window = nullptr;
 
 Window::Window()
 {
@@ -17,11 +17,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	{
 	case WM_CREATE:
 	{
+		Window* window = (Window*)((LPCREATESTRUCT)lparam)->lpCreateParams;
+		SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)window);
 		window->onCreate();
 		break;
 	}
 	case WM_DESTROY:
 	{
+		Window* window = (Window*) GetWindowLongPtr(hwnd, GWLP_USERDATA);
 		window->onDestroy();
 		::PostQuitMessage(0);
 		break;
@@ -53,14 +56,14 @@ bool Window::init()
 		throw std::runtime_error(Utilities::GetErrorStr());
 
 
-	if (!window)
-		window = this;
+	//if (!window)
+	//	window = this;
 
 	// Window Creation
 	m_hwnd = ::CreateWindowEx(
 		WS_EX_OVERLAPPEDWINDOW, class_name, L"DirectX Application",
 		WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
-		800, 480, nullptr, nullptr, moduleHandle, nullptr
+		800, 480, nullptr, nullptr, moduleHandle, this
 	);
 
 	if (!m_hwnd)
@@ -87,7 +90,7 @@ bool Window::broadcast()
 		DispatchMessage(&msg);
 	}
 
-	window->onUpdate();
+	this->onUpdate();
 
 	Sleep(0);
 	return true;
