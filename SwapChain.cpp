@@ -36,6 +36,19 @@ bool SwapChain::init(HWND hwnd, UINT w, UINT h)
 		return false;
 	}
 
+	ID3D11Texture2D* buffer = nullptr;
+	hr = m_swap_chain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&buffer);
+
+	if (FAILED(hr)) {
+		return false;
+	}
+
+	m_render_target_view = nullptr;
+	hr = device->CreateRenderTargetView(buffer, NULL, &m_render_target_view);
+	if (FAILED(hr)) {
+		return false;
+	}
+
 	return true;
 }
 
@@ -44,4 +57,18 @@ bool SwapChain::release()
 	m_swap_chain->Release();
 	delete this;
 	return true;
+}
+
+bool SwapChain::present(bool vsync)
+{
+	HRESULT res = m_swap_chain->Present(vsync, NULL);
+	if (FAILED(res))
+		return false;
+
+	return true;
+}
+
+ID3D11RenderTargetView* SwapChain::getRenderTargetView()
+{
+	return m_render_target_view;
 }

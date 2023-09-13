@@ -84,14 +84,14 @@ bool Window::init()
 // Message Pump
 bool Window::broadcast()
 {
+	this->onUpdate(); // ensure that a final frame update is made (to flush values) before releasing the resources
+
 	MSG msg;
 	while (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
-
-	this->onUpdate();
 
 	Sleep(0);
 	return true;
