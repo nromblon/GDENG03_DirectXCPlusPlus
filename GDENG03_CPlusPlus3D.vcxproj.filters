@@ -46,7 +46,7 @@
       <Filter>Source Files\GraphicsEngine</Filter>
     </ClCompile>
     <ClCompile Include="SwapChain.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GraphicsEngine\SwapChain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
