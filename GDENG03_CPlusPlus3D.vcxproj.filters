@@ -61,7 +61,7 @@
       <Filter>Source Files\GraphicsEngine\DeviceContext</Filter>
     </ClCompile>
     <ClCompile Include="VertexBuffer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GraphicsEngine\VertexBuffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
