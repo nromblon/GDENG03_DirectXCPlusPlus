@@ -31,6 +31,12 @@
     <Filter Include="Source Files\GraphicsEngine\DeviceContext">
       <UniqueIdentifier>{0460cf9d-91f8-4746-9428-ad98d09427e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\GraphicsEngine\VertexBuffer">
+      <UniqueIdentifier>{4f55a62d-32a5-4ca2-85de-946cf30bf58f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{faf3a485-a9de-4950-b25d-bfa843516227}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -54,6 +60,9 @@
     <ClCompile Include="DeviceContext.cpp">
       <Filter>Source Files\GraphicsEngine\DeviceContext</Filter>
     </ClCompile>
+    <ClCompile Include="VertexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -74,5 +83,13 @@
     <ClInclude Include="DeviceContext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="VertexBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="shader.fx">
+      <Filter>Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

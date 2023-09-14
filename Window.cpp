@@ -64,7 +64,7 @@ bool Window::init()
 	m_hwnd = ::CreateWindowEx(
 		WS_EX_OVERLAPPEDWINDOW, class_name, L"DirectX Application",
 		WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
-		800, 480, nullptr, nullptr, moduleHandle, this
+		1024, 768, nullptr, nullptr, moduleHandle, this
 	);
 
 	if (!m_hwnd)
