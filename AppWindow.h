@@ -3,7 +3,6 @@
 #include "SwapChain.h"
 #include "VertexBuffer.h"
 #include "VertexShader.h"
-#include "PixelShader.h"
 
 class AppWindow: public Window
 {
@@ -17,6 +16,8 @@ public:
 private:
 	SwapChain* m_swap_chain;
 	VertexBuffer* m_vertex_buffer;
+	ConstantBuffer* m_constant_buffer;
+
 	VertexShader* m_vertex_shader;
 	PixelShader* m_pixel_shader;
 };

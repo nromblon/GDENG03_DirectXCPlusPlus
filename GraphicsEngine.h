@@ -5,6 +5,7 @@
 #include "VertexBuffer.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
+#include "ConstantBuffer.h"
 
 class GraphicsEngine
 {
@@ -29,6 +30,8 @@ public:
 
 	PixelShader* createPixelShader(const void* shader_byte_code, size_t byte_code_size);
 	bool compilePixelShader(LPCWSTR file_name, LPCSTR entry_point_name, void** shaderByteCode, size_t* byteCodeSize);
+
+	ConstantBuffer* createConstantBuffer();
 
 	//bool createShaders();
 	//void setShaders();

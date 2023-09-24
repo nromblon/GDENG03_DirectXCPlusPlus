@@ -11,8 +11,16 @@ struct vec3
 
 struct vertex
 {
-	vec3 position;
-	vec3 color;
+	vec3 position0;
+	vec3 position1;
+	vec3 color0;
+	vec3 color1;
+};
+
+__declspec(align(16))
+struct constant
+{
+	unsigned int m_time;
 };
 
 AppWindow::AppWindow()
@@ -44,16 +52,13 @@ void AppWindow::onCreate()
 	m_vertex_shader = GraphicsEngine::get()->createVertexShader(vs_byte_code, vs_size);
 
 	vertex list[] = {
-		{-0.5f,-0.5f,0.0f  , 1, 0, 0},
-		{-0.5f,0.5f,0.0f   , 0, 1, 0},
-		{0.5f,-0.5f,0.0f   , 0, 0, 1},
-		{0.5f,0.5f,0.0f    , 1, 1, 0},
+		{-0.5f,-0.5f,0.0f, -0.32f, -0.11f, 0.0f,   1, 0, 0,      0, 0, 1},
+		{-0.5f,0.5f,0.0f, -0.11f, 0.78f, 0.0f,     0, 1, 0,      1, 0, 0},
+		{0.5f,-0.5f,0.0f, 0.75f, -0.73f, 0.0f,     0, 0, 1,      0, 1, 0},
+		{0.5f,0.5f,0.0f, 0.88f, 0.77f, 0.0f,       1, 1, 0,      0, 1, 1},
 	};
 	UINT const size_list = ARRAYSIZE(list);
 	m_vertex_buffer = GraphicsEngine::get()->createVertexBuffer();
-	//void* shader_byte_code = nullptr;
-	//UINT size_shader = 0;
-	//GraphicsEngine::get()->getShaderBufferAndSize(&shader_byte_code, &size_shader);
 	m_vertex_buffer->load(list, sizeof(vertex), size_list, vs_byte_code, vs_size);
 
 
@@ -62,9 +67,17 @@ void AppWindow::onCreate()
 	size_t ps_size = 0;
 	GraphicsEngine::get()->compilePixelShader(L"PixelShader.hlsl", "psmain", &ps_byte_code, &ps_size);
 	m_pixel_shader = GraphicsEngine::get()->createPixelShader(ps_byte_code, ps_size);
-	//GraphicsEngine::get()->createShaders();
 
 	GraphicsEngine::get()->releaseCompiledShader();
+
+	// Constant Buffer setup
+	constant cc;
+	cc.m_time = 0;
+	m_constant_buffer = GraphicsEngine::get()->createConstantBuffer();
+	m_constant_buffer->load(&cc, sizeof(constant)); // load initial value and format
+
+
+
 }
 
 void AppWindow::onUpdate()
@@ -73,12 +86,19 @@ void AppWindow::onUpdate()
 
 	RECT rc = getClientWindowRect();
 	GraphicsEngine::get()->getImmediateDeviceContext()->setViewportSize(rc.right - rc.left, rc.bottom - rc.top);
-	// Set Shaders
-	//GraphicsEngine::get()->setShaders();
+	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexBuffer(m_vertex_buffer);
+
+	// Set Default Shaders
 	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexShader(m_vertex_shader);
 	GraphicsEngine::get()->getImmediateDeviceContext()->setPixelShader(m_pixel_shader);
 
-	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexBuffer(m_vertex_buffer);
+	constant cc;
+	cc.m_time = GetTickCount();	// elapsed time in ms since the app started
+	m_constant_buffer->update(GraphicsEngine::get()->getImmediateDeviceContext(), &cc);
+
+	// Bind constant buffers to the shaders
+	GraphicsEngine::get()->getImmediateDeviceContext()->SetConstantBuffer(m_vertex_shader, m_constant_buffer);
+	GraphicsEngine::get()->getImmediateDeviceContext()->SetConstantBuffer(m_pixel_shader, m_constant_buffer);
 	
 	GraphicsEngine::get()->getImmediateDeviceContext()->drawTriangleStrip(m_vertex_buffer->getSizeVertexList(), 0);
 

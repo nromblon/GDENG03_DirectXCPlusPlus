@@ -7,6 +7,7 @@ class SwapChain; // Forward declaration of a class. Acts similar to #include, bu
 class VertexBuffer;
 class VertexShader;
 class PixelShader;
+class ConstantBuffer;
 
 class DeviceContext
 {
@@ -15,13 +16,22 @@ public:
 	~DeviceContext();
 
 	bool release();
+
 	void clearRenderTargetColor(SwapChain* swap_chain, float red, float green, float blue, float alpha);
+
 	void setVertexBuffer(VertexBuffer* vertex_buffer);
+
 	void setVertexShader(VertexShader* vertex_shader);
 	void setPixelShader(PixelShader* pixel_shader);
+
+	void SetConstantBuffer(VertexShader* vertex_shader, ConstantBuffer* buffer);
+	void SetConstantBuffer(PixelShader* pixel_shader, ConstantBuffer* buffer);
+
 	void drawTriangleList(UINT vertex_count, UINT start_vertex_index);
 	void drawTriangleStrip(UINT vertex_count, UINT start_vertex_index);
+
 	void setViewportSize(UINT width, UINT height);
+
 	ID3D11DeviceContext* getDeviceContext();
 
 private:

@@ -137,7 +137,7 @@ bool GraphicsEngine::compileVertexShader(LPCWSTR file_name, LPCSTR entry_point_n
 
 		if (error_blob) {
 			OutputDebugString(L"Error blob:");
-			OutputDebugString(reinterpret_cast<LPCWSTR>(error_blob->GetBufferPointer()));
+			OutputDebugString(static_cast<LPCWSTR>(error_blob->GetBufferPointer()));
 			error_blob->Release();
 		}
 		return false;
@@ -187,6 +187,11 @@ bool GraphicsEngine::compilePixelShader(LPCWSTR file_name, LPCSTR entry_point_na
 	*byteCodeSize = this->m_custom_blob->GetBufferSize();
 
 	return true;
+}
+
+ConstantBuffer* GraphicsEngine::createConstantBuffer()
+{
+	return new ConstantBuffer();
 }
 
 //bool GraphicsEngine::createShaders()
