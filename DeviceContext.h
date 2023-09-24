@@ -1,8 +1,11 @@
 #pragma once
 #include <d3d11.h>
 
+//#include "VertexShader.h"
+
 class SwapChain; // Forward declaration of a class. Acts similar to #include, but can only use pointers / references to that class.
 class VertexBuffer;
+class VertexShader;
 
 class DeviceContext
 {
@@ -13,6 +16,7 @@ public:
 	bool release();
 	void clearRenderTargetColor(SwapChain* swap_chain, float red, float green, float blue, float alpha);
 	void setVertexBuffer(VertexBuffer* vertex_buffer);
+	void setVertexShader(VertexShader* vertex_shader);
 	void drawTriangleList(UINT vertex_count, UINT start_vertex_index);
 	void drawTriangleStrip(UINT vertex_count, UINT start_vertex_index);
 	void setViewportSize(UINT width, UINT height);
