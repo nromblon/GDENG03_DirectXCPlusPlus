@@ -1,7 +1,6 @@
 #include "Utilities.h"
-
+#include <iostream>
 #include <stdexcept>
-#include <Windows.h>
 
 std::string Utilities::GetErrorStr()
 {
@@ -21,4 +20,16 @@ std::string Utilities::GetErrorStr()
 	LocalFree(message_buffer_lpstr);
 
 	return message;
+}
+
+
+void Utilities::PrintHResult(HRESULT hres)
+{
+	if (FAILED(hres)) {
+		std::string message = std::system_category().message(hres);
+		std::cout << message << "\n";
+	}
+	else {
+		std::cout << "Operation is successful. Don't worry! \n";
+	}
 }
