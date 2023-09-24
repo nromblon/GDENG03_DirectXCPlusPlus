@@ -44,10 +44,19 @@ bool VertexBuffer::load(void* list_vertices, UINT size_vertex, UINT size_list, v
 	D3D11_INPUT_ELEMENT_DESC layout[] = 
 	{
 		{
-			"POSITION",	// Semantic name of the element: https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-semantics
+			"POSITION",	
 			0,
 			DXGI_FORMAT_R32G32B32_FLOAT,	// datatype of each element in the list
 			0, 0,
+			D3D11_INPUT_PER_VERTEX_DATA,
+			0
+		},
+		{
+			"COLOR",	// Semantic name of the element: https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-semantics
+			0,
+			DXGI_FORMAT_R32G32B32_FLOAT,	// datatype of each element in the list
+			0,
+			12u,  // offset from previous data
 			D3D11_INPUT_PER_VERTEX_DATA,
 			0
 		}

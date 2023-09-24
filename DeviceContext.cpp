@@ -42,6 +42,11 @@ void DeviceContext::setVertexShader(VertexShader* vertex_shader)
 	m_device_context->VSSetShader(vertex_shader->getShader(), nullptr, 0);
 }
 
+void DeviceContext::setPixelShader(PixelShader* pixel_shader)
+{
+	m_device_context->PSSetShader(pixel_shader->getShader(), nullptr, 0);
+}
+
 void DeviceContext::drawTriangleList(UINT vertex_count, UINT start_vertex_index)
 {
 	m_device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);

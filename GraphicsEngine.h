@@ -4,6 +4,7 @@
 #include "SwapChain.h"
 #include "VertexBuffer.h"
 #include "VertexShader.h"
+#include "PixelShader.h"
 
 class GraphicsEngine
 {
@@ -20,13 +21,17 @@ public:
 	ID3D11Device* getDirect3DDevice();
 	DeviceContext* getImmediateDeviceContext();
 	VertexBuffer* createVertexBuffer();
-	VertexShader* createVertexShader(const void* shader_byte_code, size_t byte_code_size);
 
+	VertexShader* createVertexShader(const void* shader_byte_code, size_t byte_code_size);
 	bool compileVertexShader(LPCWSTR file_name, LPCSTR entry_point_name, void** shaderByteCode, size_t* byteCodeSize);
 	void releaseCompiledShader();
 
-	bool createShaders();
-	void setShaders();
+
+	PixelShader* createPixelShader(const void* shader_byte_code, size_t byte_code_size);
+	bool compilePixelShader(LPCWSTR file_name, LPCSTR entry_point_name, void** shaderByteCode, size_t* byteCodeSize);
+
+	//bool createShaders();
+	//void setShaders();
 	//void getShaderBufferAndSize(void** bytecode, UINT* size);
 
 private:
@@ -39,10 +44,8 @@ private:
 	IDXGIAdapter* m_dxgi_adapter;
 	IDXGIFactory* m_dxgi_factory;
 
-	ID3DBlob* m_blob;
-
-	//ID3DBlob* m_vs_blob;
-	ID3DBlob* m_ps_blob;
+	ID3DBlob* m_custom_blob;
+	//ID3DBlob* m_ps_blob;
 
 	//ID3D11VertexShader* m_vs;
 	ID3D11PixelShader* m_ps;

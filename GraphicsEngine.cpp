@@ -16,7 +16,7 @@ GraphicsEngine::GraphicsEngine(): m_selected_feature_level()
 	m_dxgi_adapter = nullptr;
 	m_dxgi_factory = nullptr;
 
-	m_blob = nullptr;
+	m_custom_blob = nullptr;
 }
 
 GraphicsEngine::~GraphicsEngine()
@@ -129,7 +129,7 @@ VertexShader* GraphicsEngine::createVertexShader(const void* shader_byte_code, s
 bool GraphicsEngine::compileVertexShader(LPCWSTR file_name, LPCSTR entry_point_name, void** shaderByteCode, size_t* byteCodeSize)
 {
 	ID3DBlob* error_blob = nullptr;
-	HRESULT hres = D3DCompileFromFile(file_name, nullptr, nullptr, entry_point_name, "vs_5_0", NULL, NULL, &m_blob, &error_blob);
+	HRESULT hres = D3DCompileFromFile(file_name, nullptr, nullptr, entry_point_name, "vs_5_0", NULL, NULL, &m_custom_blob, &error_blob);
 
 	Utilities::PrintHResult("CompileVertexShader:", hres);
 	if (FAILED(hres))
@@ -142,51 +142,86 @@ bool GraphicsEngine::compileVertexShader(LPCWSTR file_name, LPCSTR entry_point_n
 		}
 		return false;
 	}
-	*shaderByteCode = this->m_blob->GetBufferPointer();
-	*byteCodeSize = this->m_blob->GetBufferSize();
+	*shaderByteCode = this->m_custom_blob->GetBufferPointer();
+	*byteCodeSize = this->m_custom_blob->GetBufferSize();
 
 	return true;
 }
 
 void GraphicsEngine::releaseCompiledShader()
 {
-	if (m_blob)
-		m_blob->Release();
+	if (m_custom_blob)
+		m_custom_blob->Release();
 }
 
-bool GraphicsEngine::createShaders()
+PixelShader* GraphicsEngine::createPixelShader(const void* shader_byte_code, size_t byte_code_size)
 {
-	ID3DBlob* errblob = nullptr;
-	//m_vs_blob = nullptr;
-	m_ps_blob = nullptr;
-	//HRESULT hres = D3DCompileFromFile(L"shader.fx", nullptr, nullptr, "vsmain", "vs_5_0", NULL, NULL, &m_vs_blob, &errblob);
-	//if (FAILED(hres))
-	//	return false;
-	HRESULT hres = D3DCompileFromFile(L"shader.fx", nullptr, nullptr, "psmain", "ps_5_0", NULL, NULL, &m_ps_blob, &errblob);
-	if (FAILED(hres))
-		return false;
+	PixelShader* ps = new PixelShader();
 
-	//m_vs = nullptr;
-	//hres = m_d3d_device->CreateVertexShader(m_vs_blob->GetBufferPointer(), m_vs_blob->GetBufferSize(), nullptr, &m_vs);
-	//if (FAILED(hres))
-	//	return false;
-	m_ps = nullptr;
-	hres = m_d3d_device->CreatePixelShader(m_ps_blob->GetBufferPointer(), m_ps_blob->GetBufferSize(), nullptr, &m_ps);
+	if (!ps->init(shader_byte_code, byte_code_size)) {
+		ps->release();
+		return nullptr;
+	}
+
+	return ps;
+}
+
+bool GraphicsEngine::compilePixelShader(LPCWSTR file_name, LPCSTR entry_point_name, void** shaderByteCode,
+	size_t* byteCodeSize)
+{
+	ID3DBlob* error_blob = nullptr;
+	HRESULT hres = D3DCompileFromFile(file_name, nullptr, nullptr, entry_point_name, "ps_5_0", NULL, NULL, &m_custom_blob, &error_blob);
+
+	Utilities::PrintHResult("CompilePixelShader:", hres);
 	if (FAILED(hres))
+	{
+
+		if (error_blob) {
+			OutputDebugString(L"Error blob:");
+			OutputDebugString(reinterpret_cast<LPCWSTR>(error_blob->GetBufferPointer()));
+			error_blob->Release();
+		}
 		return false;
+	}
+	*shaderByteCode = this->m_custom_blob->GetBufferPointer();
+	*byteCodeSize = this->m_custom_blob->GetBufferSize();
 
 	return true;
 }
 
-void GraphicsEngine::setShaders()
-{
-	ID3D11DeviceContext* imm_context = m_imm_context->getDeviceContext();
-	//imm_context->VSSetShader(m_vs, nullptr, 0);
-	imm_context->PSSetShader(m_ps, nullptr, 0);
-}
+//bool GraphicsEngine::createShaders()
+//{
+//	ID3DBlob* errblob = nullptr;
+//	//m_custom_blob = nullptr;
+//	m_ps_blob = nullptr;
+//	//HRESULT hres = D3DCompileFromFile(L"shader.fx", nullptr, nullptr, "vsmain", "vs_5_0", NULL, NULL, &m_custom_blob, &errblob);
+//	//if (FAILED(hres))
+//	//	return false;
+//	HRESULT hres = D3DCompileFromFile(L"shader.fx", nullptr, nullptr, "psmain", "ps_5_0", NULL, NULL, &m_ps_blob, &errblob);
+//	if (FAILED(hres))
+//		return false;
+//
+//	//m_vs = nullptr;
+//	//hres = m_d3d_device->CreateVertexShader(m_custom_blob->GetBufferPointer(), m_custom_blob->GetBufferSize(), nullptr, &m_vs);
+//	//if (FAILED(hres))
+//	//	return false;
+//	m_ps = nullptr;
+//	hres = m_d3d_device->CreatePixelShader(m_ps_blob->GetBufferPointer(), m_ps_blob->GetBufferSize(), nullptr, &m_ps);
+//	if (FAILED(hres))
+//		return false;
+//
+//	return true;
+//}
+//
+//void GraphicsEngine::setShaders()
+//{
+//	ID3D11DeviceContext* imm_context = m_imm_context->getDeviceContext();
+//	//imm_context->VSSetShader(m_vs, nullptr, 0);
+//	imm_context->PSSetShader(m_ps, nullptr, 0);
+//}
 
 //void GraphicsEngine::getShaderBufferAndSize(void** bytecode, UINT* size)
 //{
-//	*bytecode = this->m_vs_blob->GetBufferPointer();
-//	*size = (UINT)this->m_vs_blob->GetBufferSize();
+//	*bytecode = this->m_custom_blob->GetBufferPointer();
+//	*size = (UINT)this->m_custom_blob->GetBufferSize();
 //}

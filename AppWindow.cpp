@@ -12,6 +12,7 @@ struct vec3
 struct vertex
 {
 	vec3 position;
+	vec3 color;
 };
 
 AppWindow::AppWindow()
@@ -43,10 +44,10 @@ void AppWindow::onCreate()
 	m_vertex_shader = GraphicsEngine::get()->createVertexShader(vs_byte_code, vs_size);
 
 	vertex list[] = {
-		{-0.5f,-0.5f,0.0f},
-		{-0.5f,0.5f,0.0f},
-		{0.5f,-0.5f,0.0f},
-		{0.5f,0.5f,0.0f},
+		{-0.5f,-0.5f,0.0f  , 1, 0, 0},
+		{-0.5f,0.5f,0.0f   , 0, 1, 0},
+		{0.5f,-0.5f,0.0f   , 0, 0, 1},
+		{0.5f,0.5f,0.0f    , 1, 1, 0},
 	};
 	UINT const size_list = ARRAYSIZE(list);
 	m_vertex_buffer = GraphicsEngine::get()->createVertexBuffer();
@@ -56,20 +57,27 @@ void AppWindow::onCreate()
 	m_vertex_buffer->load(list, sizeof(vertex), size_list, vs_byte_code, vs_size);
 
 
-	GraphicsEngine::get()->createShaders();
+	// compile & create pixel shader
+	void* ps_byte_code = nullptr;
+	size_t ps_size = 0;
+	GraphicsEngine::get()->compilePixelShader(L"PixelShader.hlsl", "psmain", &ps_byte_code, &ps_size);
+	m_pixel_shader = GraphicsEngine::get()->createPixelShader(ps_byte_code, ps_size);
+	//GraphicsEngine::get()->createShaders();
 
 	GraphicsEngine::get()->releaseCompiledShader();
 }
 
 void AppWindow::onUpdate()
 {
-	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(m_swap_chain, 0, 0, 1, 1);
+	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(m_swap_chain, 0.2f, 0.2f, 0.2f, 1);
 
 	RECT rc = getClientWindowRect();
 	GraphicsEngine::get()->getImmediateDeviceContext()->setViewportSize(rc.right - rc.left, rc.bottom - rc.top);
-	GraphicsEngine::get()->setShaders();
-
+	// Set Shaders
+	//GraphicsEngine::get()->setShaders();
 	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexShader(m_vertex_shader);
+	GraphicsEngine::get()->getImmediateDeviceContext()->setPixelShader(m_pixel_shader);
+
 	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexBuffer(m_vertex_buffer);
 	
 	GraphicsEngine::get()->getImmediateDeviceContext()->drawTriangleStrip(m_vertex_buffer->getSizeVertexList(), 0);
