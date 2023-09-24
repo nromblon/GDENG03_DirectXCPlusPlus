@@ -23,13 +23,13 @@ std::string Utilities::GetErrorStr()
 }
 
 
-void Utilities::PrintHResult(HRESULT hres)
+void Utilities::PrintHResult(const char* header, HRESULT hres)
 {
 	if (FAILED(hres)) {
 		std::string message = std::system_category().message(hres);
-		std::cout << message << "\n";
+		std::cout << std::endl << header << message << std::endl;
 	}
 	else {
-		std::cout << "Operation is successful. Don't worry! \n";
+		std::cout << std::endl << header  << "Operation is successful. Don't worry! \n";
 	}
 }

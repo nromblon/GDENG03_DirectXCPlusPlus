@@ -6,6 +6,6 @@ class Utilities
 {
 public:
 	static std::string GetErrorStr();
-	static void PrintHResult(HRESULT hres);
+	static void PrintHResult(const char* header, HRESULT hres);
 };
 
