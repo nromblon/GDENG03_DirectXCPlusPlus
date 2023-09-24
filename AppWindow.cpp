@@ -36,9 +36,10 @@ void AppWindow::onCreate()
 	m_swap_chain->init(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
 
 	vertex list[] = {
-		{0.0f,0.5f,0.0f},
-		{0.5f,-0.5f,0.0f},
 		{-0.5f,-0.5f,0.0f},
+		{-0.5f,0.5f,0.0f},
+		{0.5f,-0.5f,0.0f},
+		{0.5f,0.5f,0.0f},
 	};
 	UINT const size_list = ARRAYSIZE(list);
 	m_vertex_buffer = GraphicsEngine::get()->createVertexBuffer();
@@ -60,7 +61,7 @@ void AppWindow::onUpdate()
 	GraphicsEngine::get()->setShaders();
 	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexBuffer(m_vertex_buffer);
 	
-	GraphicsEngine::get()->getImmediateDeviceContext()->drawTriangleList(m_vertex_buffer->getSizeVertexList(), 0);
+	GraphicsEngine::get()->getImmediateDeviceContext()->drawTriangleStrip(m_vertex_buffer->getSizeVertexList(), 0);
 
 
 	m_swap_chain->present(true);
