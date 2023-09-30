@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include "EngineTime.h"
 #include "GraphicsEngine.h"
 
 struct vec3
@@ -37,6 +38,7 @@ AppWindow::~AppWindow()
 void AppWindow::onCreate()
 {
 	GraphicsEngine::get()->init();
+	EngineTime::initialize();
 	m_swap_chain = GraphicsEngine::get()->createSwapChain();
 
 	RECT rc = getClientWindowRect();
@@ -93,7 +95,7 @@ void AppWindow::onUpdate()
 	GraphicsEngine::get()->getImmediateDeviceContext()->setPixelShader(m_pixel_shader);
 
 	constant cc;
-	cc.m_time = GetTickCount();	// elapsed time in ms since the app started
+	cc.m_time = GetTickCount64();	// elapsed time in ms since the app started
 	m_constant_buffer->update(GraphicsEngine::get()->getImmediateDeviceContext(), &cc);
 
 	// Bind constant buffers to the shaders
@@ -104,6 +106,7 @@ void AppWindow::onUpdate()
 
 
 	m_swap_chain->present(true);
+	std::cout << EngineTime::getDeltaTime() << std::endl;
 }
 
 void AppWindow::onDestroy()

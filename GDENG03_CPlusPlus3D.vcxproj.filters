@@ -46,6 +46,9 @@
     <Filter Include="Source Files\GraphicsEngine\ConstantBuffer">
       <UniqueIdentifier>{08ab10a1-ac2b-4735-bc28-10ad436bd75f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\EngineTime">
+      <UniqueIdentifier>{aa5ea8d6-772d-496a-8f5b-4cb97a608acb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -81,6 +84,9 @@
     <ClCompile Include="ConstantBuffer.cpp">
       <Filter>Source Files\GraphicsEngine\ConstantBuffer</Filter>
     </ClCompile>
+    <ClCompile Include="EngineTime.cpp">
+      <Filter>Source Files\EngineTime</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -111,6 +117,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ConstantBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineTime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,6 +2,8 @@
 #include "Utilities.h"
 #include <stdexcept>
 
+#include "EngineTime.h"
+
 const HMODULE moduleHandle = GetModuleHandle(nullptr);
 
 //Window* window = nullptr;
@@ -84,6 +86,7 @@ bool Window::init()
 // Message Pump
 bool Window::broadcast()
 {
+	EngineTime::LogFrameStart();
 	this->onUpdate(); // ensure that a final frame update is made (to flush values) before releasing the resources
 
 	MSG msg;
@@ -94,6 +97,7 @@ bool Window::broadcast()
 	}
 
 	Sleep(0);
+	EngineTime::LogFrameEnd();
 	return true;
 }
 
