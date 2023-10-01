@@ -49,6 +49,9 @@
     <Filter Include="Source Files\EngineTime">
       <UniqueIdentifier>{aa5ea8d6-772d-496a-8f5b-4cb97a608acb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\GraphicsEngine\Buffers">
+      <UniqueIdentifier>{cb7781d3-f225-49b6-9bc7-593ddbe0407a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

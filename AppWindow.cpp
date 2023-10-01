@@ -1,7 +1,7 @@
 #include "AppWindow.h"
-
+#define _USE_MATH_DEFINES
 #include <iostream>
-
+#include <math.h>
 #include "EngineTime.h"
 #include "GraphicsEngine.h"
 
@@ -21,7 +21,7 @@ struct vertex
 __declspec(align(16))
 struct constant
 {
-	unsigned int m_time;
+	float m_time;
 };
 
 AppWindow::AppWindow()
@@ -56,8 +56,8 @@ void AppWindow::onCreate()
 	vertex list[] = {
 		{-0.5f,-0.5f,0.0f, -0.32f, -0.11f, 0.0f,   1, 0, 0,      0, 0, 1},
 		{-0.5f,0.5f,0.0f, -0.11f, 0.78f, 0.0f,     0, 1, 0,      1, 0, 0},
-		{0.5f,-0.5f,0.0f, 0.75f, -0.73f, 0.0f,     0, 0, 1,      0, 1, 0},
-		{0.5f,0.5f,0.0f, 0.88f, 0.77f, 0.0f,       1, 1, 0,      0, 1, 1},
+		{0.5f,-0.5f,0.0f, 0.75f, -0.73f, 0.0f,     0, 0, 1,      0, 1, 1},
+		{0.5f,0.5f,0.0f, -0.5f,-0.5f,0.0f,       1, 1, 0,      0, 1, 1},
 	};
 	UINT const size_list = ARRAYSIZE(list);
 	m_vertex_buffer = GraphicsEngine::get()->createVertexBuffer();
@@ -84,6 +84,24 @@ void AppWindow::onCreate()
 
 void AppWindow::onUpdate()
 {
+	//ticks += EngineTime::getDeltaTime() * 2 * M_PI * 3.0f;
+	ticks += EngineTime::getDeltaTime() * speedFactor;
+
+	std::cout << "speedFactor: " << speedFactor << "\n";
+	if (speedFactor > 10.0f) // up to 3 oscillations per second
+	{
+		this->isIncreasing = false;
+	}
+	else if (speedFactor < 0.1f)
+	{
+		this->isIncreasing = true;
+	}
+
+	if (isIncreasing)
+		this->speedFactor += 0.05f;
+	else
+		this->speedFactor -= 0.05f;
+
 	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(m_swap_chain, 0.2f, 0.2f, 0.2f, 1);
 
 	RECT rc = getClientWindowRect();
@@ -95,7 +113,10 @@ void AppWindow::onUpdate()
 	GraphicsEngine::get()->getImmediateDeviceContext()->setPixelShader(m_pixel_shader);
 
 	constant cc;
-	cc.m_time = GetTickCount64();	// elapsed time in ms since the app started
+	cc.m_time = this->ticks;	
+
+	std::cout << "m_time: " << cc.m_time << "\n";
+	std::cout << "sin(m_time): " << (std::sin(cc.m_time) + 1) / 2 << "\n";
 	m_constant_buffer->update(GraphicsEngine::get()->getImmediateDeviceContext(), &cc);
 
 	// Bind constant buffers to the shaders
@@ -106,7 +127,7 @@ void AppWindow::onUpdate()
 
 
 	m_swap_chain->present(true);
-	std::cout << EngineTime::getDeltaTime() << std::endl;
+	//std::cout << EngineTime::getDeltaTime() << std::endl;
 }
 
 void AppWindow::onDestroy()
