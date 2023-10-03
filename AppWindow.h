@@ -22,6 +22,7 @@ private:
 	SwapChain* m_swap_chain;
 	VertexBuffer* m_vertex_buffer;
 	ConstantBuffer* m_constant_buffer;
+	IndexBuffer* m_index_buffer;
 
 	VertexShader* m_vertex_shader;
 	PixelShader* m_pixel_shader;

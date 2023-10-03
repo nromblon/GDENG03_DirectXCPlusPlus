@@ -3,6 +3,7 @@
 #include "DeviceContext.h"
 #include "SwapChain.h"
 #include "VertexBuffer.h"
+#include "IndexBuffer.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
 #include "ConstantBuffer.h"
@@ -21,7 +22,6 @@ public:
 	SwapChain* createSwapChain();
 	ID3D11Device* getDirect3DDevice();
 	DeviceContext* getImmediateDeviceContext();
-	VertexBuffer* createVertexBuffer();
 
 	VertexShader* createVertexShader(const void* shader_byte_code, size_t byte_code_size);
 	bool compileVertexShader(LPCWSTR file_name, LPCSTR entry_point_name, void** shaderByteCode, size_t* byteCodeSize);
@@ -31,11 +31,10 @@ public:
 	PixelShader* createPixelShader(const void* shader_byte_code, size_t byte_code_size);
 	bool compilePixelShader(LPCWSTR file_name, LPCSTR entry_point_name, void** shaderByteCode, size_t* byteCodeSize);
 
-	ConstantBuffer* createConstantBuffer();
 
-	//bool createShaders();
-	//void setShaders();
-	//void getShaderBufferAndSize(void** bytecode, UINT* size);
+	VertexBuffer* createVertexBuffer();
+	IndexBuffer* createIndexBuffer();
+	ConstantBuffer* createConstantBuffer();
 
 private:
 	ID3D11Device* m_d3d_device;
@@ -56,5 +55,6 @@ private:
 
 	friend class SwapChain;
 	friend class VertexBuffer;
+	friend class IndexBuffer;
 };
 

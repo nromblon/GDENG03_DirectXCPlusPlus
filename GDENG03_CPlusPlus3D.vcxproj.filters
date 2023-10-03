@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\Utils">
-      <UniqueIdentifier>{095cc3ae-abc2-4614-87b2-c3b71b1e1891}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\App">
       <UniqueIdentifier>{cad8e2c0-3fac-4940-bb01-593a4037bddf}</UniqueIdentifier>
     </Filter>
@@ -31,9 +28,6 @@
     <Filter Include="Source Files\GraphicsEngine\DeviceContext">
       <UniqueIdentifier>{0460cf9d-91f8-4746-9428-ad98d09427e4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\GraphicsEngine\VertexBuffer">
-      <UniqueIdentifier>{4f55a62d-32a5-4ca2-85de-946cf30bf58f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shaders">
       <UniqueIdentifier>{faf3a485-a9de-4950-b25d-bfa843516227}</UniqueIdentifier>
     </Filter>
@@ -43,14 +37,17 @@
     <Filter Include="Source Files\GraphicsEngine\PixelShader">
       <UniqueIdentifier>{de30a86f-97a8-4d9f-8146-bd90d7b34a35}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\GraphicsEngine\ConstantBuffer">
-      <UniqueIdentifier>{08ab10a1-ac2b-4735-bc28-10ad436bd75f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\EngineTime">
       <UniqueIdentifier>{aa5ea8d6-772d-496a-8f5b-4cb97a608acb}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\GraphicsEngine\Buffers">
       <UniqueIdentifier>{cb7781d3-f225-49b6-9bc7-593ddbe0407a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Math">
+      <UniqueIdentifier>{3dc151f0-2397-4cd7-9d56-5f5c92aa8838}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{095cc3ae-abc2-4614-87b2-c3b71b1e1891}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -75,20 +72,29 @@
     <ClCompile Include="DeviceContext.cpp">
       <Filter>Source Files\GraphicsEngine\DeviceContext</Filter>
     </ClCompile>
-    <ClCompile Include="VertexBuffer.cpp">
-      <Filter>Source Files\GraphicsEngine\VertexBuffer</Filter>
-    </ClCompile>
     <ClCompile Include="VertexShader.cpp">
       <Filter>Source Files\GraphicsEngine\VertexShader</Filter>
     </ClCompile>
     <ClCompile Include="PixelShader.cpp">
       <Filter>Source Files\GraphicsEngine\PixelShader</Filter>
     </ClCompile>
-    <ClCompile Include="ConstantBuffer.cpp">
-      <Filter>Source Files\GraphicsEngine\ConstantBuffer</Filter>
-    </ClCompile>
     <ClCompile Include="EngineTime.cpp">
       <Filter>Source Files\EngineTime</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBuffer.cpp">
+      <Filter>Source Files\GraphicsEngine\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexBuffer.cpp">
+      <Filter>Source Files\GraphicsEngine\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix4x4.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3D.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstantBuffer.cpp">
+      <Filter>Source Files\GraphicsEngine\Buffers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +129,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EngineTime.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix4x4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
