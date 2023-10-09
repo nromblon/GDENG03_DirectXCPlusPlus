@@ -1,4 +1,7 @@
 #pragma once
+#include <vector>
+
+#include "Cube.h"
 #include "Window.h"
 #include "SwapChain.h"
 #include "VertexBuffer.h"
@@ -14,10 +17,9 @@ public:
 	virtual void onUpdate() override;
 	virtual void onDestroy() override;
 private:
-	// Temp properties for increasing / decreasing animation
+	std::vector<Cube*> cubeList;
+
 	float ticks = 0.0f;
-	float speedFactor = 0.1f;
-	bool isIncreasing = true;
 
 	SwapChain* m_swap_chain;
 	VertexBuffer* m_vertex_buffer;

@@ -98,6 +98,15 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files\App</Filter>
     </ClCompile>
+    <ClCompile Include="AGameObject.cpp">
+      <Filter>Source Files\GameEngine\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>Source Files\GameEngine\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="MathUtils.cpp">
+      <Filter>Source Files\GameEngine\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -141,6 +150,15 @@
     </ClInclude>
     <ClInclude Include="DeviceContext.h">
       <Filter>Source Files\GameEngine\GraphicsEngine\DeviceContext</Filter>
+    </ClInclude>
+    <ClInclude Include="AGameObject.h">
+      <Filter>Source Files\GameEngine\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Source Files\GameEngine\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="MathUtils.h">
+      <Filter>Source Files\GameEngine\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
