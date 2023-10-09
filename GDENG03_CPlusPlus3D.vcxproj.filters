@@ -51,6 +51,9 @@
     <Filter Include="Source Files\GameEngine\WindowSystem">
       <UniqueIdentifier>{99141c9d-f198-4cf5-828e-096b442abb20}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\GameEngine\InputSystem">
+      <UniqueIdentifier>{4f8a6951-c843-44d1-9b03-838a53eecd3c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp">
@@ -107,6 +110,9 @@
     <ClCompile Include="MathUtils.cpp">
       <Filter>Source Files\GameEngine\Math</Filter>
     </ClCompile>
+    <ClCompile Include="InputSystem.cpp">
+      <Filter>Source Files\GameEngine\InputSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -159,6 +165,12 @@
     </ClInclude>
     <ClInclude Include="MathUtils.h">
       <Filter>Source Files\GameEngine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="InputSystem.h">
+      <Filter>Source Files\GameEngine\InputSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="InputListener.h">
+      <Filter>Source Files\GameEngine\InputSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

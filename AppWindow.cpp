@@ -7,6 +7,7 @@
 #include "Vector3D.h"
 #include "EngineTime.h"
 #include "GraphicsEngine.h"
+#include "InputSystem.h"
 #include "MathUtils.h"
 #include "Matrix4x4.h"
 
@@ -15,6 +16,9 @@ void AppWindow::onCreate()
 	GraphicsEngine::get()->init();
 	GraphicsEngine* graphEngine = GraphicsEngine::get();
 	EngineTime::initialize();
+	InputSystem::initialize();
+	InputSystem::getInstance()->addListener(this);
+
 	m_swap_chain = GraphicsEngine::get()->createSwapChain();
 
 	RECT rc = getClientWindowRect();
@@ -53,6 +57,8 @@ void AppWindow::onUpdate()
 {
 	ticks += EngineTime::getDeltaTime() * 1.0f;
 
+	InputSystem::getInstance()->update();
+
 	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(m_swap_chain, 0.2f, 0.2f, 0.2f, 1);
 
 	RECT rc = getClientWindowRect();
@@ -79,7 +85,27 @@ void AppWindow::onDestroy()
 
 	m_vertex_shader->release();
 	m_pixel_shader->release();
+
+	InputSystem::destroy();
 	GraphicsEngine::get()->release();
+}
+
+void AppWindow::onKeyDown(int key)
+{
+	cout << "onkeydown:\n";
+	if (InputSystem::getInstance()->isKeyDown('W'))
+	{
+		cout << "W pressed\n";
+	}
+}
+
+void AppWindow::onKeyUp(int key)
+{
+	cout << "onkeyup:\n";
+	if (InputSystem::getInstance()->isKeyUp('W'))
+	{
+		cout << "W released\n";
+	}
 }
 
 AppWindow::AppWindow()

@@ -2,12 +2,13 @@
 #include <vector>
 
 #include "Cube.h"
+#include "InputListener.h"
 #include "Window.h"
 #include "SwapChain.h"
 #include "VertexBuffer.h"
 #include "VertexShader.h"
 
-class AppWindow: public Window
+class AppWindow: public Window, public InputListener
 {
 public:
 	AppWindow();
@@ -16,6 +17,10 @@ public:
 	virtual void onCreate() override;
 	virtual void onUpdate() override;
 	virtual void onDestroy() override;
+
+
+	virtual void onKeyDown(int key) override;
+	virtual void onKeyUp(int key) override;
 private:
 	std::vector<Cube*> cubeList;
 
