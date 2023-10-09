@@ -39,6 +39,16 @@ Vector3D Vector3D::lerp(const Vector3D start, const Vector3D end, float delta)
 	return v;
 }
 
+Vector3D Vector3D::ones()
+{
+	return Vector3D(1.0f, 1.0f, 1.0f);
+}
+
+Vector3D Vector3D::zeros()
+{
+	return Vector3D(0.0f, 0.0f, 0.0f);
+}
+
 Vector3D::~Vector3D()
 {
 }

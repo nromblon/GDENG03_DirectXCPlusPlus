@@ -14,9 +14,11 @@ public:
 		float z;
 	};
 
-	Vector3D::Vect getValues() const;
+	Vect getValues() const;
 
 	static Vector3D lerp(const Vector3D start, const Vector3D end, float delta);
+	static Vector3D ones();
+	static Vector3D zeros();
 
 private:
 	float x = 0.0f;
