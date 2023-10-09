@@ -108,6 +108,27 @@ void AppWindow::onKeyUp(int key)
 	}
 }
 
+void AppWindow::onMouseMove(const Point deltaPos)
+{
+	cout << " mouse moved: " << deltaPos.getX() << ", " << deltaPos.getY() << "\n";
+}
+
+void AppWindow::onLeftMouseDown(const Point deltaPos)
+{
+}
+
+void AppWindow::onLeftMouseUp(const Point deltaPos)
+{
+}
+
+void AppWindow::onRightMouseDown(const Point deltaPos)
+{
+}
+
+void AppWindow::onRightMouseUp(const Point deltaPos)
+{
+}
+
 AppWindow::AppWindow()
 {
 

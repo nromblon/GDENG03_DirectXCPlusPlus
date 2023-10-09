@@ -113,6 +113,9 @@
     <ClCompile Include="InputSystem.cpp">
       <Filter>Source Files\GameEngine\InputSystem</Filter>
     </ClCompile>
+    <ClCompile Include="Point.cpp">
+      <Filter>Source Files\GameEngine\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -171,6 +174,9 @@
     </ClInclude>
     <ClInclude Include="InputListener.h">
       <Filter>Source Files\GameEngine\InputSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.h">
+      <Filter>Source Files\GameEngine\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

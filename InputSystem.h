@@ -4,6 +4,8 @@
 #include <Windows.h>
 #include <vector>
 
+#include "Point.h"
+
 using namespace std;
 
 class InputSystem
@@ -30,10 +32,20 @@ private:
 	void callOnKeyDown(int key);
 	void callOnKeyUp(int key);
 
-	vector<InputListener*> inputListenerList;
+	// Mouse helper methods
+	void callOnMouseMove(Point deltaPt);
+	void callOnLeftMouseDown(Point deltaPt);
+	void callOnLeftMouseUp(Point deltaPt);
+	void callOnRightMouseDown(Point deltaPt);
+	void callOnRightMouseUp(Point deltaPt);
 
+	vector<InputListener*> inputListenerList;
+	// keyboard data
 	unsigned char keyStates[256] = {};
 	unsigned char oldKeyStates[256] = {};
+	// mouse data
+	Point oldMousePos;
+	bool firstTimeCall = true;
 
 	InputSystem();
 	~InputSystem();

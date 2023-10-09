@@ -21,6 +21,14 @@ public:
 
 	virtual void onKeyDown(int key) override;
 	virtual void onKeyUp(int key) override;
+
+	virtual void onMouseMove(const Point deltaPos);
+
+	virtual void onLeftMouseDown(const Point deltaPos);
+	virtual void onLeftMouseUp(const Point deltaPos);
+
+	virtual void onRightMouseDown(const Point deltaPos);
+	virtual void onRightMouseUp(const Point deltaPos);
 private:
 	std::vector<Cube*> cubeList;
 
