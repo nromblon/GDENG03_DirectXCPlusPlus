@@ -32,10 +32,11 @@ void AppWindow::onCreate()
 	for (int i = 0; i < 100; i++) {
 		float x = MathUtils::randomFloat(-0.75, 0.75f);
 		float y = MathUtils::randomFloat(-0.75, 0.75f);
+		float z = MathUtils::randomFloat(-0.75, 0.75f);
 
 		Cube* cubeObject = new Cube("Cube", shaderByteCode, sizeShader);
 		cubeObject->setAnimSpeed(MathUtils::randomFloat(-3.75f, 3.75f));
-		cubeObject->setPosition(Vector3D(x, y, 0.0f));
+		cubeObject->setPosition(Vector3D(x, y, z));
 		cubeObject->setScale(Vector3D(0.25, 0.25, 0.25));
 		this->cubeList.push_back(cubeObject);
 	}
