@@ -19,6 +19,21 @@ Vector3D::Vector3D(const Vector3D* vector)
 	this->z = vector->z;
 }
 
+float Vector3D::getX() const
+{
+	return this->x;
+}
+
+float Vector3D::getY() const
+{
+	return this->y;
+}
+
+float Vector3D::getZ() const
+{
+	return this->z;
+}
+
 Vector3D::Vect Vector3D::getValues() const
 {
 	Vect vect = {};

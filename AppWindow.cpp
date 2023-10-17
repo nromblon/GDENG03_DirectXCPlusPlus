@@ -10,6 +10,7 @@
 #include "InputSystem.h"
 #include "MathUtils.h"
 #include "Matrix4x4.h"
+#include "SceneCameraHandler.h"
 
 void AppWindow::onCreate()
 {
@@ -17,7 +18,6 @@ void AppWindow::onCreate()
 	GraphicsEngine* graphEngine = GraphicsEngine::get();
 	EngineTime::initialize();
 	InputSystem::initialize();
-	InputSystem::getInstance()->addListener(this);
 
 	m_swap_chain = GraphicsEngine::get()->createSwapChain();
 
@@ -51,6 +51,8 @@ void AppWindow::onCreate()
 	graphEngine->compilePixelShader(L"PixelShader.hlsl", "psmain", &shaderByteCode, &sizeShader);
 	this->m_pixel_shader = graphEngine->createPixelShader(shaderByteCode, sizeShader);
 	graphEngine->releaseCompiledShader();
+
+	SceneCameraHandler::initialize();
 }
 
 void AppWindow::onUpdate()
@@ -72,6 +74,9 @@ void AppWindow::onUpdate()
 		cubeList[i]->draw(width, height, m_vertex_shader, m_pixel_shader);
 	}
 
+
+	SceneCameraHandler::getInstance()->update();
+
 	m_swap_chain->present(true);
 }
 
@@ -88,45 +93,6 @@ void AppWindow::onDestroy()
 
 	InputSystem::destroy();
 	GraphicsEngine::get()->release();
-}
-
-void AppWindow::onKeyDown(int key)
-{
-	cout << "onkeydown:\n";
-	if (InputSystem::getInstance()->isKeyDown('W'))
-	{
-		cout << "W pressed\n";
-	}
-}
-
-void AppWindow::onKeyUp(int key)
-{
-	cout << "onkeyup:\n";
-	if (InputSystem::getInstance()->isKeyUp('W'))
-	{
-		cout << "W released\n";
-	}
-}
-
-void AppWindow::onMouseMove(const Point deltaPos)
-{
-	cout << " mouse moved: " << deltaPos.getX() << ", " << deltaPos.getY() << "\n";
-}
-
-void AppWindow::onLeftMouseDown(const Point deltaPos)
-{
-}
-
-void AppWindow::onLeftMouseUp(const Point deltaPos)
-{
-}
-
-void AppWindow::onRightMouseDown(const Point deltaPos)
-{
-}
-
-void AppWindow::onRightMouseUp(const Point deltaPos)
-{
 }
 
 AppWindow::AppWindow()

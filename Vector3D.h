@@ -14,6 +14,10 @@ public:
 		float z;
 	};
 
+	float getX() const;
+	float getY() const;
+	float getZ() const;
+
 	Vect getValues() const;
 
 	static Vector3D lerp(const Vector3D start, const Vector3D end, float delta);
