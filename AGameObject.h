@@ -7,6 +7,7 @@ using namespace std;
 
 class VertexShader;
 class PixelShader;
+class GameObjectManager;
 
 class AGameObject
 {
@@ -26,6 +27,9 @@ public:
 	void setScale(float x, float y, float z);
 	void setScale(Vector3D scale);
 	Vector3D getLocalScale();
+
+	bool isEnabled();
+	void setEnabled(bool enabled);
 
 	void setRotation(float x, float y, float z);
 	void setRotation(Vector3D rot);
@@ -53,5 +57,9 @@ protected:
 	Vector3D localScale;
 	Vector3D localRotation;
 	Matrix4x4 localMatrix;
+
+private:
+	bool enabled = true;
+	friend class GameObjectManager;
 };
 

@@ -18,9 +18,10 @@ public:
 	virtual void onUpdate() override;
 	virtual void onDestroy() override;
 
-private:
-	std::vector<Cube*> cubeList;
+	void iniitializeEngine();
+	void initializeUI();
 
+private:
 	float ticks = 0.0f;
 
 	SwapChain* m_swap_chain;

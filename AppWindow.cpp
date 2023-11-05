@@ -6,13 +6,67 @@
 #include "Cube.h"
 #include "Vector3D.h"
 #include "EngineTime.h"
+#include "GameObjectManager.h"
 #include "GraphicsEngine.h"
 #include "InputSystem.h"
 #include "MathUtils.h"
 #include "Matrix4x4.h"
 #include "SceneCameraHandler.h"
 
+
+#include "imgui.h"
+#include "imgui_impl_win32.h"
+#include "imgui_impl_dx11.h"
+#include "UIManager.h"
+
 void AppWindow::onCreate()
+{
+	iniitializeEngine();
+	initializeUI();
+}
+
+void AppWindow::onUpdate()
+{
+	ticks += EngineTime::getDeltaTime() * 1.0f;
+
+	InputSystem::getInstance()->update();
+
+	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(m_swap_chain, 0.2f, 0.2f, 0.2f, 1);
+
+	RECT rc = getClientWindowRect();
+	int width = rc.right - rc.left;
+	int height = rc.bottom - rc.top;
+
+	GraphicsEngine::get()->getImmediateDeviceContext()->setViewportSize(width, height);
+
+	GameObjectManager::getInstance()->updateAll();
+	GameObjectManager::getInstance()->renderAll(width, height, this->m_vertex_shader, this->m_pixel_shader);
+	SceneCameraHandler::getInstance()->update();
+	UIManager::getInstance()->drawAllUI();
+
+	m_swap_chain->present(true);
+}
+
+void AppWindow::onDestroy()
+{
+	Window::onDestroy();
+	m_swap_chain->release();
+	m_vertex_buffer->release();
+	m_index_buffer->release();
+	m_constant_buffer->release();
+
+	m_vertex_shader->release();
+	m_pixel_shader->release();
+
+
+	ImGui_ImplDX11_Shutdown();
+	ImGui_ImplWin32_Shutdown();
+	ImGui::DestroyContext();
+	InputSystem::destroy();
+	GraphicsEngine::get()->release();
+}
+
+void AppWindow::iniitializeEngine()
 {
 	GraphicsEngine::get()->init();
 	GraphicsEngine* graphEngine = GraphicsEngine::get();
@@ -32,20 +86,9 @@ void AppWindow::onCreate()
 	//compile basic vertex shader
 	graphEngine->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shaderByteCode, &sizeShader);
 	this->m_vertex_shader = graphEngine->createVertexShader(shaderByteCode, sizeShader);
-
-	for (int i = 0; i < 100; i++) {
-		float x = MathUtils::randomFloat(-0.75, 0.75f);
-		float y = MathUtils::randomFloat(-0.75, 0.75f);
-		float z = MathUtils::randomFloat(-0.75, 0.75f);
-
-		Cube* cubeObject = new Cube("Cube", shaderByteCode, sizeShader);
-		cubeObject->setAnimSpeed(MathUtils::randomFloat(-3.75f, 3.75f));
-		cubeObject->setPosition(Vector3D(x, y, z));
-		cubeObject->setScale(Vector3D(0.25, 0.25, 0.25));
-		this->cubeList.push_back(cubeObject);
-	}
-
 	graphEngine->releaseCompiledShader(); // this must be called after compilation of each shader
+
+	GameObjectManager::initialize();
 
 	//compile basic pixel shader
 	graphEngine->compilePixelShader(L"PixelShader.hlsl", "psmain", &shaderByteCode, &sizeShader);
@@ -55,44 +98,9 @@ void AppWindow::onCreate()
 	SceneCameraHandler::initialize();
 }
 
-void AppWindow::onUpdate()
+void AppWindow::initializeUI()
 {
-	ticks += EngineTime::getDeltaTime() * 1.0f;
-
-	InputSystem::getInstance()->update();
-
-	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(m_swap_chain, 0.2f, 0.2f, 0.2f, 1);
-
-	RECT rc = getClientWindowRect();
-	int width = rc.right - rc.left;
-	int height = rc.bottom - rc.top;
-
-	GraphicsEngine::get()->getImmediateDeviceContext()->setViewportSize(width, height);
-
-	for (int i = 0; i < cubeList.size(); i++) {
-		cubeList[i]->update(EngineTime::getDeltaTime());
-		cubeList[i]->draw(width, height, m_vertex_shader, m_pixel_shader);
-	}
-
-
-	SceneCameraHandler::getInstance()->update();
-
-	m_swap_chain->present(true);
-}
-
-void AppWindow::onDestroy()
-{
-	Window::onDestroy();
-	m_swap_chain->release();
-	m_vertex_buffer->release();
-	m_index_buffer->release();
-	m_constant_buffer->release();
-
-	m_vertex_shader->release();
-	m_pixel_shader->release();
-
-	InputSystem::destroy();
-	GraphicsEngine::get()->release();
+	UIManager::initialize(this->m_hwnd);
 }
 
 AppWindow::AppWindow()

@@ -57,6 +57,15 @@
     <Filter Include="imgui">
       <UniqueIdentifier>{03215824-fd55-4b49-927c-991ed6e8084a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Editor">
+      <UniqueIdentifier>{48d53bd7-98e7-4a49-b40a-40da626872f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Editor\Screens">
+      <UniqueIdentifier>{7694ee19-7d48-4329-b7f7-214a23367939}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Hierarchy">
+      <UniqueIdentifier>{6878c15b-c50c-434e-97d3-21c925b6766e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp">
@@ -151,6 +160,30 @@
     </ClCompile>
     <ClCompile Include="imgui\misc\cpp\imgui_stdlib.cpp">
       <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIScreen.cpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="HierarchyScreen.cpp">
+      <Filter>Source Files\Editor\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectManager.cpp">
+      <Filter>Source Files\Hierarchy</Filter>
+    </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>Source Files\GameEngine\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="InspectorScreen.cpp">
+      <Filter>Source Files\Editor\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuScreen.cpp">
+      <Filter>Source Files\Editor\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="ProfilerScreen.cpp">
+      <Filter>Source Files\Editor\Screens</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -249,6 +282,30 @@
     </ClInclude>
     <ClInclude Include="imgui\misc\cpp\imgui_stdlib.h">
       <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIScreen.h">
+      <Filter>Source Files\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>Source Files\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="HierarchyScreen.h">
+      <Filter>Source Files\Editor\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectManager.h">
+      <Filter>Source Files\Hierarchy</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>Source Files\GameEngine\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="InspectorScreen.h">
+      <Filter>Source Files\Editor\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuScreen.h">
+      <Filter>Source Files\Editor\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="ProfilerScreen.h">
+      <Filter>Source Files\Editor\Screens</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

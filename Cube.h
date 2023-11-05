@@ -14,7 +14,7 @@ public:
 	void draw(int width, int height, VertexShader* vertexShader, PixelShader* pixelShader) override;
 	void setAnimSpeed(float speed);
 
-private:
+protected:
 	VertexBuffer* vertexBuffer;
 	IndexBuffer* indexBuffer;
 	ConstantBuffer* constantBuffer;

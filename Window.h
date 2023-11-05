@@ -25,6 +25,9 @@ public:
 	virtual void onUpdate() = 0;
 	virtual void onDestroy();
 
+	static const int WINDOW_WIDTH = 1440;
+	static const int WINDOW_HEIGHT = 900;
+
 protected:
 	HWND m_hwnd;
 	bool m_is_running;

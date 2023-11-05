@@ -3,6 +3,7 @@
 #include <stdexcept>
 
 #include "EngineTime.h"
+#include "imgui.h"
 
 const HMODULE moduleHandle = GetModuleHandle(nullptr);
 
@@ -13,8 +14,14 @@ Window::Window()
 	m_is_running = false;
 }
 
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
+
+	if (ImGui_ImplWin32_WndProcHandler(hwnd, msg, wparam, lparam))
+		return true;
+
 	switch (msg)
 	{
 	case WM_CREATE:
@@ -66,7 +73,7 @@ bool Window::init()
 	m_hwnd = ::CreateWindowEx(
 		WS_EX_OVERLAPPEDWINDOW, class_name, L"DirectX Application",
 		WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
-		1024, 768, nullptr, nullptr, moduleHandle, this
+		WINDOW_WIDTH, WINDOW_HEIGHT, nullptr, nullptr, moduleHandle, this
 	);
 
 	if (!m_hwnd)

@@ -65,7 +65,7 @@ Cube::~Cube()
 void Cube::update(float deltaTime)
 {
 	this->deltaTime = deltaTime;
-	if (this->speed <= 1.0f) {
+	/*if (this->speed <= 1.0f) {
 		this->ticks += deltaTime;
 
 		float rotSpeed = this->ticks * this->speed;
@@ -76,7 +76,7 @@ void Cube::update(float deltaTime)
 
 		float rotSpeed = this->ticks * this->speed;
 		this->setRotation(rotSpeed, rotSpeed, rotSpeed);
-	}
+	}*/
 }
 
 void Cube::draw(int width, int height, VertexShader* vertexShader, PixelShader* pixelShader)

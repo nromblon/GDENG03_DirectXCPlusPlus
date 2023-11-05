@@ -57,6 +57,16 @@ Vector3D AGameObject::getLocalScale()
 	return this->localScale;
 }
 
+bool AGameObject::isEnabled()
+{
+	return this->enabled;
+}
+
+void AGameObject::setEnabled(bool enabled)
+{
+	this->enabled = enabled;
+}
+
 string AGameObject::getName()
 {
 	return this->name;
