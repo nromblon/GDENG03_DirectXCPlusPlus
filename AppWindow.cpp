@@ -19,12 +19,17 @@
 #include "imgui_impl_dx11.h"
 #include "UIManager.h"
 
+#include <reactphysics3d/reactphysics3d.h>
+
+#include "PhysicsSystem.h"
+
+using namespace reactphysics3d;
+
 void AppWindow::onCreate()
 {
-	iniitializeEngine();
+	initializeEngine();
 	initializeUI();
 }
-
 void AppWindow::onUpdate()
 {
 	ticks += EngineTime::getDeltaTime() * 1.0f;
@@ -38,8 +43,8 @@ void AppWindow::onUpdate()
 	int height = rc.bottom - rc.top;
 
 	GraphicsEngine::get()->getImmediateDeviceContext()->setViewportSize(width, height);
-
 	GameObjectManager::getInstance()->updateAll();
+	BaseComponentSystem::getInstance()->getPhysicsSystem()->updateAllComponents();
 	GameObjectManager::getInstance()->renderAll(width, height, this->m_vertex_shader, this->m_pixel_shader);
 	SceneCameraHandler::getInstance()->update();
 	UIManager::getInstance()->drawAllUI();
@@ -58,15 +63,18 @@ void AppWindow::onDestroy()
 	m_vertex_shader->release();
 	m_pixel_shader->release();
 
+	InputSystem::destroy();
+
+	BaseComponentSystem::destroy();
+	GraphicsEngine::get()->release();
+	UIManager::destroy();
 
 	ImGui_ImplDX11_Shutdown();
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
-	InputSystem::destroy();
-	GraphicsEngine::get()->release();
 }
 
-void AppWindow::iniitializeEngine()
+void AppWindow::initializeEngine()
 {
 	GraphicsEngine::get()->init();
 	GraphicsEngine* graphEngine = GraphicsEngine::get();
@@ -94,6 +102,8 @@ void AppWindow::iniitializeEngine()
 	graphEngine->compilePixelShader(L"PixelShader.hlsl", "psmain", &shaderByteCode, &sizeShader);
 	this->m_pixel_shader = graphEngine->createPixelShader(shaderByteCode, sizeShader);
 	graphEngine->releaseCompiledShader();
+
+	BaseComponentSystem::initialize();
 
 	SceneCameraHandler::initialize();
 }

@@ -24,6 +24,11 @@ void Matrix4x4::setMatrix(const Matrix4x4 matrix)
 	::memcpy(this->matrix, matrix.matrix, sizeof(float) * 16);
 }
 
+void Matrix4x4::setMatrix(float matrix[4][4])
+{
+	::memcpy(this->matrix, matrix, sizeof(float) * 16);
+}
+
 Matrix4x4 Matrix4x4::clone()
 {
 	Matrix4x4 copy;
@@ -186,6 +191,12 @@ Vector3D Matrix4x4::getXDirection()
 Vector3D Matrix4x4::getTranslation()
 {
 	return Vector3D(this->matrix[3][0], this->matrix[3][1], this->matrix[3][2]);
+}
+
+float* Matrix4x4::getMatrix()
+{
+	//re-arrange to be compatible with react physics
+	return *this->matrix; // can be read as float [16]
 }
 
 void Matrix4x4::operator*=(const Matrix4x4& matrix)

@@ -66,6 +66,12 @@
     <Filter Include="Source Files\Hierarchy">
       <UniqueIdentifier>{6878c15b-c50c-434e-97d3-21c925b6766e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\GameEngine\ComponentSystem">
+      <UniqueIdentifier>{0d174000-cd03-4a4d-b0df-4655cec249f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameEngine\ComponentSystem\PhysicsEngine">
+      <UniqueIdentifier>{ffe26941-7b74-49f4-a1dd-36b833800554}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp">
@@ -184,6 +190,18 @@
     </ClCompile>
     <ClCompile Include="ProfilerScreen.cpp">
       <Filter>Source Files\Editor\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsSystem.cpp">
+      <Filter>Source Files\GameEngine\ComponentSystem\PhysicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseComponentSystem.cpp">
+      <Filter>Source Files\GameEngine\ComponentSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="AComponent.cpp">
+      <Filter>Source Files\GameEngine\ComponentSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsComponent.cpp">
+      <Filter>Source Files\GameEngine\ComponentSystem\PhysicsEngine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -306,6 +324,18 @@
     </ClInclude>
     <ClInclude Include="ProfilerScreen.h">
       <Filter>Source Files\Editor\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsSystem.h">
+      <Filter>Source Files\GameEngine\ComponentSystem\PhysicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseComponentSystem.h">
+      <Filter>Source Files\GameEngine\ComponentSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="AComponent.h">
+      <Filter>Source Files\GameEngine\ComponentSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsComponent.h">
+      <Filter>Source Files\GameEngine\ComponentSystem\PhysicsEngine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

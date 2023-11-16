@@ -18,7 +18,7 @@ public:
 	virtual void onUpdate() override;
 	virtual void onDestroy() override;
 
-	void iniitializeEngine();
+	void initializeEngine();
 	void initializeUI();
 
 private:
