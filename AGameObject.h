@@ -35,6 +35,11 @@ public:
 	void setRotation(Vector3D rot);
 	Vector3D getLocalRotation();
 
+	// openGL matrix to our matrix implementation
+	void recomputeMatrix(float matrix[16]);
+	// our matrix implementation to openGL matrix
+	float* getPhysicsLocalMatrix();
+
 	string getName();
 
 	struct Vertex {
