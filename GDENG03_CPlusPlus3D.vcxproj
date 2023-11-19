@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\neilr\source\repos\GDENG03_CPlusPlus3D\Lib\reactphysics3d;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\neilr\source\repos\GDENG03_CPlusPlus3D\Lib\reactphysics3d;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(LocalDebuggerWorkingDirectory)\Lib\reactphysics3d;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\neilr\source\repos\GDENG03_CPlusPlus3D\Lib\reactphysics3d;$(LocalDebuggerWorkingDirectory)\Lib\reactphysics3d;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -108,7 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NOMINMAX;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\neilr\source\repos\GDENG03_CPlusPlus3D\imgui;C:\Users\neilr\source\repos\GDENG03_CPlusPlus3D\imgui\misc\cpp;C:\Users\neilr\source\repos\GDENG03_CPlusPlus3D\imgui\backends;C:\Users\neilr\source\repos\GDENG03_CPlusPlus3D\Lib\reactphysics3d\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(LocalDebuggerWorkingDirectory)\imgui;$(LocalDebuggerWorkingDirectory)\imgui\misc\cpp;$(LocalDebuggerWorkingDirectory)\imgui\backends;$(LocalDebuggerWorkingDirectory)\Lib\reactphysics3d\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
