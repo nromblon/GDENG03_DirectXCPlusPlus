@@ -1,8 +1,10 @@
-#include "Plane.h"
+#include "PhysicsPlane.h"
+#include "PhysicsComponent.h"
 #include "GraphicsEngine.h"
 #include "ShaderLibrary.h"
+#include "PhysicsSystem.h"
 
-Plane::Plane(string name) : Cube(name)
+PhysicsPlane::PhysicsPlane(String name, bool skipInit) : Cube(name)
 {
 	ShaderNames shaderNames;
 	void* shaderByteCode = NULL;
@@ -26,7 +28,7 @@ Plane::Plane(string name) : Cube(name)
 		{Vector3D(-0.5f,-0.5f,0.5f),     Vector3D(1,1,1), Vector3D(0,0.2f,0) },
 	};
 
-	this->vertexBuffer->release();
+	//this->vertexBuffer->release();
 	this->vertexBuffer = GraphicsEngine::get()->createVertexBuffer();
 	this->vertexBuffer->load(quadList, sizeof(Vertex), ARRAYSIZE(quadList), shaderByteCode, sizeShader);
 
@@ -63,20 +65,17 @@ Plane::Plane(string name) : Cube(name)
 	this->constantBuffer = GraphicsEngine::get()->createConstantBuffer();
 	this->constantBuffer->load(&cbData, sizeof(CBData));
 
-	this->setScale(8.0f, 8.0f, 0.1f);
-	this->setRotation(90, 0.0f, 0.0f);
+	this->setPosition(0.0f, -5.0f, 0.0f);
+	this->setScale(32.0f, 0.2f, 32.0f);
+	this->setRotation(0.0f, 0.0f, 0.0f);
+	this->updateLocalMatrix();
+	this->attachComponent(new PhysicsComponent("PhysicsComponent", this));
+
+	PhysicsComponent* component = (PhysicsComponent*)this->findComponentOfType(AComponent::ComponentType::Physics, "PhysicsComponent");
+	component->getRigidBody()->setType(BodyType::KINEMATIC);
+	//component->getRigidBody()->setMass(0.0f);
 }
 
-Plane::~Plane()
+PhysicsPlane::~PhysicsPlane()
 {
-}
-
-void Plane::update(float deltaTime)
-{
-	Cube::update(deltaTime);
-}
-
-void Plane::draw(int width, int height)
-{
-	Cube::draw(width, height);
 }

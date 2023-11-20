@@ -163,12 +163,15 @@
     <ClCompile Include="Matrix4x4.cpp" />
     <ClCompile Include="MenuScreen.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
+    <ClCompile Include="PhysicsCube.cpp" />
+    <ClCompile Include="PhysicsPlane.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="PixelShader.cpp" />
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="ProfilerScreen.cpp" />
     <ClCompile Include="SceneCameraHandler.cpp" />
+    <ClCompile Include="ShaderLibrary.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="Utilities.cpp" />
@@ -209,12 +212,15 @@
     <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="MenuScreen.h" />
     <ClInclude Include="PhysicsComponent.h" />
+    <ClInclude Include="PhysicsCube.h" />
+    <ClInclude Include="PhysicsPlane.h" />
     <ClInclude Include="PhysicsSystem.h" />
     <ClInclude Include="PixelShader.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="ProfilerScreen.h" />
     <ClInclude Include="SceneCameraHandler.h" />
+    <ClInclude Include="ShaderLibrary.h" />
     <ClInclude Include="SwapChain.h" />
     <ClInclude Include="UIManager.h" />
     <ClInclude Include="Utilities.h" />
@@ -226,6 +232,12 @@
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="PixelShader.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="TexturedPixelShader.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="TexturedVertexShader.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </FxCompile>
     <FxCompile Include="VertexShader.hlsl">

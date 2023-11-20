@@ -54,13 +54,15 @@ void DeviceContext::setIndexBuffer(IndexBuffer* index_buffer)
 	m_device_context->IASetIndexBuffer(index_buffer->getBuffer(), DXGI_FORMAT_R32_UINT, 0);
 }
 
-void DeviceContext::setConstantBuffer(VertexShader* vertex_shader, ConstantBuffer* buffer)
+void DeviceContext::setRenderConfig(VertexShader* vertexShader, PixelShader* pixelShader)
 {
-	m_device_context->VSSetConstantBuffers(0, 1, &(buffer->m_buffer));
+	this->m_device_context->VSSetShader(vertexShader->getShader(), NULL, 0);
+	this->m_device_context->PSSetShader(pixelShader->getShader(), NULL, 0);
 }
 
-void DeviceContext::setConstantBuffer(PixelShader* pixel_shader, ConstantBuffer* buffer)
+void DeviceContext::setConstantBuffer(ConstantBuffer* buffer)
 {
+	m_device_context->VSSetConstantBuffers(0, 1, &(buffer->m_buffer));
 	m_device_context->PSSetConstantBuffers(0, 1, &(buffer->m_buffer));
 }
 

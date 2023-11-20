@@ -89,7 +89,7 @@ void Camera::update(float deltaTime)
 	}
 }
 
-void Camera::draw(int width, int height, VertexShader* vertexShader, PixelShader* pixelShader)
+void Camera::draw(int width, int height)
 {
 	// no-op
 }
@@ -115,7 +115,7 @@ void Camera::onMouseMove(const Point deltaPos)
 		float y = localRot.getY();
 		float z = localRot.getZ();
 
-		float speed = 0.005f;
+		float speed = 0.5f;
 		x += deltaPos.getY() * speed;
 		y += deltaPos.getX() * speed;
 

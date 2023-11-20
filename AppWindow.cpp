@@ -22,6 +22,7 @@
 #include <reactphysics3d/reactphysics3d.h>
 
 #include "PhysicsSystem.h"
+#include "ShaderLibrary.h"
 
 using namespace reactphysics3d;
 
@@ -41,11 +42,12 @@ void AppWindow::onUpdate()
 	RECT rc = getClientWindowRect();
 	int width = rc.right - rc.left;
 	int height = rc.bottom - rc.top;
-
 	GraphicsEngine::get()->getImmediateDeviceContext()->setViewportSize(width, height);
+
+	// Update rest of the systems
 	GameObjectManager::getInstance()->updateAll();
 	BaseComponentSystem::getInstance()->getPhysicsSystem()->updateAllComponents();
-	GameObjectManager::getInstance()->renderAll(width, height, this->m_vertex_shader, this->m_pixel_shader);
+	GameObjectManager::getInstance()->renderAll(width, height);
 	SceneCameraHandler::getInstance()->update();
 	UIManager::getInstance()->drawAllUI();
 
@@ -64,8 +66,9 @@ void AppWindow::onDestroy()
 	m_pixel_shader->release();
 
 	InputSystem::destroy();
-
+	ShaderLibrary::destroy();
 	BaseComponentSystem::destroy();
+	GameObjectManager::destroy();
 	GraphicsEngine::get()->release();
 	UIManager::destroy();
 
@@ -76,9 +79,9 @@ void AppWindow::onDestroy()
 
 void AppWindow::initializeEngine()
 {
-	GraphicsEngine::get()->init();
-	GraphicsEngine* graphEngine = GraphicsEngine::get();
+	GraphicsEngine::get()->init();;
 	EngineTime::initialize();
+	ShaderLibrary::initialize();
 	InputSystem::initialize();
 
 	m_swap_chain = GraphicsEngine::get()->createSwapChain();
@@ -88,21 +91,7 @@ void AppWindow::initializeEngine()
 	std::cout << "hwnd: " << this->m_hwnd;
 	m_swap_chain->init(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
 
-	void* shaderByteCode = nullptr;
-	size_t sizeShader = 0;
-
-	//compile basic vertex shader
-	graphEngine->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shaderByteCode, &sizeShader);
-	this->m_vertex_shader = graphEngine->createVertexShader(shaderByteCode, sizeShader);
-	graphEngine->releaseCompiledShader(); // this must be called after compilation of each shader
-
 	GameObjectManager::initialize();
-
-	//compile basic pixel shader
-	graphEngine->compilePixelShader(L"PixelShader.hlsl", "psmain", &shaderByteCode, &sizeShader);
-	this->m_pixel_shader = graphEngine->createPixelShader(shaderByteCode, sizeShader);
-	graphEngine->releaseCompiledShader();
-
 	BaseComponentSystem::initialize();
 
 	SceneCameraHandler::initialize();

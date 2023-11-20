@@ -203,6 +203,15 @@
     <ClCompile Include="PhysicsComponent.cpp">
       <Filter>Source Files\GameEngine\ComponentSystem\PhysicsEngine</Filter>
     </ClCompile>
+    <ClCompile Include="PhysicsCube.cpp">
+      <Filter>Source Files\GameEngine\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsPlane.cpp">
+      <Filter>Source Files\GameEngine\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderLibrary.cpp">
+      <Filter>Source Files\GameEngine\GraphicsEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -337,12 +346,27 @@
     <ClInclude Include="PhysicsComponent.h">
       <Filter>Source Files\GameEngine\ComponentSystem\PhysicsEngine</Filter>
     </ClInclude>
+    <ClInclude Include="PhysicsCube.h">
+      <Filter>Source Files\GameEngine\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsPlane.h">
+      <Filter>Source Files\GameEngine\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderLibrary.h">
+      <Filter>Source Files\GameEngine\GraphicsEngine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
     <FxCompile Include="PixelShader.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="TexturedPixelShader.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="TexturedVertexShader.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
   </ItemGroup>

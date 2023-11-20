@@ -27,8 +27,9 @@ public:
 
 	void setIndexBuffer(IndexBuffer* index_buffer);
 
-	void setConstantBuffer(VertexShader* vertex_shader, ConstantBuffer* buffer);
-	void setConstantBuffer(PixelShader* pixel_shader, ConstantBuffer* buffer);
+	void setRenderConfig(VertexShader* vertexShader, PixelShader* pixelShader);
+	void setConstantBuffer(ConstantBuffer* buffer);
+	//TODO: void setTexture(Texture* texture);
 
 	void drawTriangleList(UINT vertex_count, UINT start_vertex_index);
 	void drawTriangleStrip(UINT vertex_count, UINT start_vertex_index);

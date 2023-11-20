@@ -4,6 +4,8 @@
 #include "Plane.h"
 #include "MathUtils.h"
 #include "AGameObject.h"
+#include "PhysicsCube.h"
+#include "PhysicsPlane.h"
 
 GameObjectManager* GameObjectManager::sharedInstance = NULL;
 
@@ -55,12 +57,12 @@ void GameObjectManager::updateAll()
 	}
 }
 
-void GameObjectManager::renderAll(int viewportWidth, int viewportHeight, VertexShader* vertexShader, PixelShader* pixelShader)
+void GameObjectManager::renderAll(int viewportWidth, int viewportHeight)
 {
 	for (int i = 0; i < this->gameObjectList.size(); i++) {
 		//replace with component update
 		if (this->gameObjectList[i]->isEnabled()) {
-			this->gameObjectList[i]->draw(viewportWidth, viewportHeight, vertexShader, pixelShader);
+			this->gameObjectList[i]->draw(viewportWidth, viewportHeight);
 		}
 	}
 }
@@ -85,17 +87,27 @@ void GameObjectManager::addObject(AGameObject* gameObject)
 	this->gameObjectList.push_back(gameObject);
 }
 
-void GameObjectManager::createObject(PrimitiveType type, void* shaderByteCode, size_t sizeShader)
+void GameObjectManager::createObject(PrimitiveType type)
 {
 	if (type == PrimitiveType::CUBE) {
-		Cube* cube = new Cube("Cube", shaderByteCode, sizeShader);
+		Cube* cube = new Cube("Cube");
 		cube->setPosition(0.0f, 0.0f, 0.0f);
 		cube->setScale(1.0f, 1.0f, 1.0f);
 		this->addObject(cube);
 	}
 
-	if (type == PrimitiveType::PLANE) {
-		Plane* plane = new Plane("Plane", shaderByteCode, sizeShader);
+	else if (type == PrimitiveType::PLANE) {
+		Plane* plane = new Plane("Plane");
+		this->addObject(plane);
+	}
+
+	else if (type == PrimitiveType::PHYSICS_CUBE) {
+		PhysicsCube* cube = new PhysicsCube("Cube_Physics");
+		this->addObject(cube);
+	}
+
+	else if (type == PrimitiveType::PHYSICS_PLANE) {
+		PhysicsPlane* plane = new PhysicsPlane("Plane_Physics");
 		this->addObject(plane);
 	}
 }

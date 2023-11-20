@@ -1,5 +1,8 @@
 #pragma once
 #include <string>
+#include <vector>
+
+#include "AComponent.h"
 #include "Vector3D.h"
 #include "Matrix4x4.h"
 
@@ -16,9 +19,19 @@ public:
 	AGameObject(string name);
 	~AGameObject();
 
+	struct AQuaternion {
+		float w = 0.0f;
+		float x = 0.0f;
+		float y = 0.0f;
+		float z = 0.0f;
+	};
+
+	typedef string String;
+	typedef vector<AComponent*> ComponentList;
+
 	// Abstract Methods
 	virtual void update(float deltaTime) = 0;
-	virtual void draw(int width, int height, VertexShader* vertexShader, PixelShader* pixelShader) = 0;
+	virtual void draw(int width, int height) = 0;
 
 	void setPosition(float x, float y, float z);
 	void setPosition(Vector3D pos);
@@ -35,10 +48,20 @@ public:
 	void setRotation(Vector3D rot);
 	Vector3D getLocalRotation();
 
+	void attachComponent(AComponent* component);
+	void detachComponent(AComponent* component);
+
+	AComponent* findComponentByName(String name);
+	AComponent* findComponentOfType(AComponent::ComponentType type, String name);
+	ComponentList getComponentsOfType(AComponent::ComponentType type);
+	ComponentList getComponentsOfTypeRecursive(AComponent::ComponentType type);
+
 	// openGL matrix to our matrix implementation
 	void recomputeMatrix(float matrix[16]);
 	// our matrix implementation to openGL matrix
 	float* getPhysicsLocalMatrix();
+	void updateLocalMatrix(); //updates local matrix based from latest position, rotation, and scale.
+	float* getRawMatrix();
 
 	string getName();
 
@@ -60,8 +83,13 @@ protected:
 	string name;
 	Vector3D localPosition;
 	Vector3D localScale;
+	AQuaternion orientation;
 	Vector3D localRotation;
 	Matrix4x4 localMatrix;
+
+	ComponentList componentList;
+
+	bool overrideMatrix = false;
 
 private:
 	bool enabled = true;

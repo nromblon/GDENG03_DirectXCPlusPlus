@@ -15,11 +15,13 @@ AGameObject::~AGameObject()
 void AGameObject::setPosition(float x, float y, float z)
 {
 	this->localPosition = Vector3D(x, y, z);
+	this->overrideMatrix = false;
 }
 
 void AGameObject::setPosition(Vector3D pos)
 {
 	this->localPosition = pos;
+	this->overrideMatrix = false;
 }
 
 Vector3D AGameObject::getLocalPosition()
@@ -30,26 +32,96 @@ Vector3D AGameObject::getLocalPosition()
 void AGameObject::setScale(float x, float y, float z)
 {
 	this->localScale = Vector3D(x, y, z);
+	this->overrideMatrix = false;
 }
 
 void AGameObject::setScale(Vector3D scale)
 {
 	this->localScale = scale;
+	this->overrideMatrix = false;
 }
 
 void AGameObject::setRotation(float x, float y, float z)
 {
 	this->localRotation = Vector3D(x, y, z);
+	this->overrideMatrix = false;
 }
 
 void AGameObject::setRotation(Vector3D rot)
 {
 	this->localRotation = rot;
+	this->overrideMatrix = false;
 }
 
 Vector3D AGameObject::getLocalRotation()
 {
 	return this->localRotation;
+}
+
+void AGameObject::attachComponent(AComponent* component)
+{
+	this->componentList.push_back(component);
+	component->attachOwner(this);
+}
+
+void AGameObject::detachComponent(AComponent* component)
+{
+	int index = -1;
+	for (int i = 0; i < this->componentList.size(); i++) {
+		if (this->componentList[i] == component) {
+			index = i;
+			break;
+		}
+	}
+	if (index != -1) {
+		this->componentList.erase(this->componentList.begin() + index);
+	}
+}
+
+AComponent* AGameObject::findComponentByName(String name)
+{
+	for (int i = 0; i < this->componentList.size(); i++) {
+		if (this->componentList[i]->getName() == name) {
+			return this->componentList[i];
+		}
+	}
+
+	return NULL;
+}
+
+AComponent* AGameObject::findComponentOfType(AComponent::ComponentType type, String name)
+{
+	for (int i = 0; i < this->componentList.size(); i++) {
+		if (this->componentList[i]->getName() == name && this->componentList[i]->getType() == type) {
+			return this->componentList[i];
+		}
+	}
+
+	return NULL;
+}
+
+AGameObject::ComponentList AGameObject::getComponentsOfType(AComponent::ComponentType type)
+{
+	ComponentList foundList;
+	for (int i = 0; i < this->componentList.size(); i++) {
+		if (this->componentList[i]->getType() == type) {
+			foundList.push_back(this->componentList[i]);
+		}
+	}
+
+	return foundList;
+}
+
+AGameObject::ComponentList AGameObject::getComponentsOfTypeRecursive(AComponent::ComponentType type)
+{
+	ComponentList foundList;
+	for (int i = 0; i < this->componentList.size(); i++) {
+		if (this->componentList[i]->getType() == type) {
+			foundList.push_back(this->componentList[i]);
+		}
+	}
+
+	return foundList;
 }
 
 void AGameObject::recomputeMatrix(float matrix[16])
@@ -79,6 +151,7 @@ void AGameObject::recomputeMatrix(float matrix[16])
 	Matrix4x4 scaleMatrix; scaleMatrix.setScale(this->localScale);
 	Matrix4x4 transMatrix; transMatrix.setTranslation(this->localPosition);
 	this->localMatrix = scaleMatrix.multiplyTo(transMatrix.multiplyTo(newMatrix));
+	this->overrideMatrix = true;
 }
 
 float* AGameObject::getPhysicsLocalMatrix()
@@ -100,6 +173,32 @@ float* AGameObject::getPhysicsLocalMatrix()
 	allMatrix = allMatrix.multiplyTo(translationMatrix);
 
 	return allMatrix.getMatrix();
+}
+
+void AGameObject::updateLocalMatrix()
+{
+	//setup transformation matrix for drawing.
+	Matrix4x4 allMatrix; allMatrix.setIdentity();
+	Matrix4x4 translationMatrix; translationMatrix.setIdentity();  translationMatrix.setTranslation(this->getLocalPosition());
+	Matrix4x4 scaleMatrix; scaleMatrix.setScale(this->getLocalScale());
+	Vector3D rotation = this->getLocalRotation();
+	Matrix4x4 xMatrix; xMatrix.setRotationX(rotation.getX());
+	Matrix4x4 yMatrix; yMatrix.setRotationY(rotation.getY());
+	Matrix4x4 zMatrix; zMatrix.setRotationZ(rotation.getZ());
+
+	//Scale --> Rotate --> Transform as recommended order.
+	Matrix4x4 rotMatrix; rotMatrix.setIdentity();
+	rotMatrix = rotMatrix.multiplyTo(xMatrix.multiplyTo(yMatrix.multiplyTo(zMatrix)));
+
+	allMatrix = allMatrix.multiplyTo(scaleMatrix.multiplyTo(rotMatrix));
+	allMatrix = allMatrix.multiplyTo(translationMatrix);
+	this->localMatrix = allMatrix;
+}
+
+float* AGameObject::getRawMatrix()
+{
+	float* matrix4x4 = this->localMatrix.getMatrix();
+	return matrix4x4;
 }
 
 Vector3D AGameObject::getLocalScale()
