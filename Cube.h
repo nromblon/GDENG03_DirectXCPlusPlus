@@ -7,7 +7,7 @@
 class Cube: public AGameObject
 {
 public:
-	Cube(string name, bool skipInit = false);
+	Cube(String name, bool skipInit = false);
 	~Cube();
 
 	void update(float deltaTime) override;

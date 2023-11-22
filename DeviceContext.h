@@ -9,6 +9,7 @@ class IndexBuffer;
 class VertexShader;
 class PixelShader;
 class ConstantBuffer;
+class Texture;
 
 class DeviceContext
 {
@@ -29,7 +30,7 @@ public:
 
 	void setRenderConfig(VertexShader* vertexShader, PixelShader* pixelShader);
 	void setConstantBuffer(ConstantBuffer* buffer);
-	//TODO: void setTexture(Texture* texture);
+	void setTexture(Texture* texture);
 
 	void drawTriangleList(UINT vertex_count, UINT start_vertex_index);
 	void drawTriangleStrip(UINT vertex_count, UINT start_vertex_index);

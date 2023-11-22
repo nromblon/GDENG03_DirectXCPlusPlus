@@ -1,6 +1,6 @@
 #include "AGameObject.h"
 
-AGameObject::AGameObject(string name)
+AGameObject::AGameObject(std::string name)
 {
 	this->name = name;
 	this->localRotation = Vector3D::zeros();
@@ -216,7 +216,7 @@ void AGameObject::setEnabled(bool enabled)
 	this->enabled = enabled;
 }
 
-string AGameObject::getName()
+std::string AGameObject::getName()
 {
 	return this->name;
 }

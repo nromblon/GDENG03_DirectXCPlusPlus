@@ -8,7 +8,7 @@
 class Plane : public Cube
 {
 public:
-	Plane(string name);
+	Plane(String name);
 	~Plane();
 
 	void update(float deltaTime) override;

@@ -70,6 +70,12 @@ ShaderLibrary::~ShaderLibrary()
 	this->activeVertexShaders[shaderNames.BASE_VERTEX_SHADER_NAME]->release();
 	this->activePixelShaders[shaderNames.BASE_PIXEL_SHADER_NAME]->release();
 
+	for(auto& vs : this->activeVertexShaders)
+		vs.second->release();
+
+	for (auto& ps : this->activePixelShaders)
+		ps.second->release();
+
 	this->activeVertexShaders.clear();
 	this->activePixelShaders.clear();
 }

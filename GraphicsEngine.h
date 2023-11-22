@@ -7,6 +7,7 @@
 #include "VertexShader.h"
 #include "PixelShader.h"
 #include "ConstantBuffer.h"
+#include "TexturedVertexBuffer.h"
 
 class GraphicsEngine
 {
@@ -27,12 +28,12 @@ public:
 	bool compileVertexShader(LPCWSTR file_name, LPCSTR entry_point_name, void** shaderByteCode, size_t* byteCodeSize);
 	void releaseCompiledShader();
 
-
 	PixelShader* createPixelShader(const void* shader_byte_code, size_t byte_code_size);
 	bool compilePixelShader(LPCWSTR file_name, LPCSTR entry_point_name, void** shaderByteCode, size_t* byteCodeSize);
 
 
 	VertexBuffer* createVertexBuffer();
+	TexturedVertexBuffer* createTexturedBuffer();
 	IndexBuffer* createIndexBuffer();
 	ConstantBuffer* createConstantBuffer();
 

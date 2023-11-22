@@ -23,6 +23,7 @@
 
 #include "PhysicsSystem.h"
 #include "ShaderLibrary.h"
+#include "TextureManager.h"
 
 using namespace reactphysics3d;
 
@@ -67,6 +68,7 @@ void AppWindow::onDestroy()
 
 	InputSystem::destroy();
 	ShaderLibrary::destroy();
+	TextureManager::destroy();
 	BaseComponentSystem::destroy();
 	GameObjectManager::destroy();
 	GraphicsEngine::get()->release();
@@ -79,8 +81,9 @@ void AppWindow::onDestroy()
 
 void AppWindow::initializeEngine()
 {
-	GraphicsEngine::get()->init();;
+	GraphicsEngine::get()->init();
 	EngineTime::initialize();
+	TextureManager::initialize();
 	ShaderLibrary::initialize();
 	InputSystem::initialize();
 
@@ -103,11 +106,7 @@ void AppWindow::initializeUI()
 }
 
 AppWindow::AppWindow()
-{
-
-}
+= default;
 
 AppWindow::~AppWindow()
-{
-
-}
+= default;

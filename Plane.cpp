@@ -2,7 +2,7 @@
 #include "GraphicsEngine.h"
 #include "ShaderLibrary.h"
 
-Plane::Plane(string name) : Cube(name)
+Plane::Plane(String name) : Cube(name)
 {
 	ShaderNames shaderNames;
 	void* shaderByteCode = NULL;

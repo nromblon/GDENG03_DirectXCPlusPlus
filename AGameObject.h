@@ -6,8 +6,6 @@
 #include "Vector3D.h"
 #include "Matrix4x4.h"
 
-using namespace std;
-
 class VertexShader;
 class PixelShader;
 class GameObjectManager;
@@ -16,7 +14,7 @@ class AGameObject
 {
 
 public:
-	AGameObject(string name);
+	AGameObject(std::string name);
 	~AGameObject();
 
 	struct AQuaternion {
@@ -26,8 +24,8 @@ public:
 		float z = 0.0f;
 	};
 
-	typedef string String;
-	typedef vector<AComponent*> ComponentList;
+	typedef std::string String;
+	typedef std::vector<AComponent*> ComponentList;
 
 	// Abstract Methods
 	virtual void update(float deltaTime) = 0;
@@ -63,7 +61,7 @@ public:
 	void updateLocalMatrix(); //updates local matrix based from latest position, rotation, and scale.
 	float* getRawMatrix();
 
-	string getName();
+	std::string getName();
 
 	struct Vertex {
 		Vector3D position;
@@ -80,7 +78,7 @@ public:
 	};
 
 protected:
-	string name;
+	std::string name;
 	Vector3D localPosition;
 	Vector3D localScale;
 	AQuaternion orientation;
